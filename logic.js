@@ -9,8 +9,8 @@ async function main() {
   const CELLS = document.querySelectorAll(".cell"); // all cells a user will use using DOM
   const LOADER = document.querySelector(".loader"); // accesses to the loader element using DOM
 
-  const API_POST = "https://words.dev-apis.com/validate-word"; // for validateWord() async function (POST)
-  const API_GET = "https://words.dev-apis.com/word-of-the-day"; // for initWord() async function (GET)
+  const API_POST = "/validate-word"; // for validateWord() async function (POST)
+  const API_GET = "/word-of-the-day"; // for initWord() async function (GET)
 
   // let variables
   let isFinished = false; // to check if a user finished a game
@@ -81,7 +81,12 @@ async function main() {
     if (guessedWord.length !== ANSWER_LENGTH) return;
 
     showLoader();
-    await validateWord();
+    try {
+      await validateWord();
+    } catch (_) {
+      hideLoader();
+      return;          // abort further processing
+    }
 
     if (isValid) {
       if (guessedWord !== todayWord) {
@@ -164,28 +169,44 @@ async function main() {
     }
   }
 
+  // simple banner
+  function showError(msg) {
+    const banner = document.createElement("div");
+    banner.className = "error-banner";
+    banner.textContent = msg;
+    document.body.prepend(banner);
+    setTimeout(() => banner.remove(), 4000);
+  }
+
   // sends a word to the API and true or false returns
   async function validateWord() {
-    const promise = await fetch(API_POST, {
-      method: "POST",
-      body: JSON.stringify({
-        word: guessedWord
-      })
-    });
-
-    const data = await promise.json();
-    isValid = data.validWord;
+    try {
+      const res = await fetch(API_POST, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ word: guessedWord })
+      });
+      if (!res.ok) throw new Error(`status ${res.status}`);
+      const data = await res.json();
+      isValid = data.validWord;
+    } catch (err) {
+      showError("Connection error – try again later");
+      throw err;                      // break
+    }
   }
 
   // initializes a todayWord variable
   async function initWord() {
-    const promise = await fetch(API_GET, {
-    method: "GET"
-    });
-
-    const data = await promise.json();
-    todayWord = data.word.toLowerCase();
-  }
+    try {
+      const res = await fetch(API_GET);
+      if (!res.ok) throw new Error(`status ${res.status}`);
+      const data = await res.json();
+      todayWord = data.word.toLowerCase();
+    } catch (err) {
+      showError("Cannot reach server – reload later");
+      throw err;                       // break
+    }
+  }     
 }
 
 // entry point to the programm
