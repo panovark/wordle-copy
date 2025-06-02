@@ -10,8 +10,8 @@ A lightweight **Wordle clone**: vanilla HTML/CSS/JS on the front end and a tiny 
 * **Keyboard controls** (letters, Backspace, Enter).  
 * **Two REST endpoints**
 
-  | Method | Route | Description |
-  | ------ | ----- | ----------- |
+  | Method | Route |
+  | ------ | ----- |
   | `GET /word‑of‑the‑day` | Returns `{ word, puzzleNumber }`. |
   | `POST /validate‑word`  | Returns `{ validWord: true/false }` for any five‑letter attempt. |
 
@@ -22,17 +22,21 @@ A lightweight **Wordle clone**: vanilla HTML/CSS/JS on the front end and a tiny 
 ## 📁 Project layout
 
 ```
-root/
-├─ index.html
-├─ style.css
-├─ logic.js
-├─ Dockerfile
-├─ docker-compose.yml
-└─ backend/
-   ├─ server.js
-   ├─ words.js
-   ├─ package.json
-   └─ package-lock.json
+wordle-copy/
+├── backend/              # Server-side code (Express)
+│   ├── words.js          # Word dictionary (array of ~2300 words)
+│   ├── server.js         # Main API code
+│   ├── package.json
+│   └── package-lock.json
+├── frontend/             # Client-side code (vanilla HTML/CSS/JS)
+│   ├── index.html
+│   ├── logic.js
+│   └── style.css
+├── Dockerfile            # Docker image build instructions
+├── docker-compose.yml    # Development environment (hot-reload)
+├── .dockerignore
+├── .gitignore
+└── README.md
 ```
 
 ---
