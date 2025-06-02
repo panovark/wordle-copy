@@ -115,7 +115,7 @@ span {
   display: none;
 }
 
-.error-banner{
+.error-banner {
   background:#f44336;
   color:#fff;
   text-align:center;
@@ -136,7 +136,7 @@ span {
   100% { transform: rotate(360deg); }
 }
 
-.instructions{
+.instructions {
   max-width: 28rem;
   margin: .625rem auto 0;
   padding: 1rem 2rem;
@@ -147,18 +147,18 @@ span {
   font-size: 0.95rem;
 }
 
-.instructions h2{
+.instructions h2 {
   font-size: 1.4rem;
   margin-bottom: 0.75rem;
   text-align: center;
 }
 
-.instructions ol{
+.instructions ol {
   padding-left: 1.2rem;
   margin-bottom: 0.75rem;
 }
 
-.instructions kbd{
+.instructions kbd {
   background: #eee;
   padding: .125rem .375rem;
   border-radius: .1875rem;
@@ -166,13 +166,13 @@ span {
   font-family: inherit;
 }
 
-.instructions .hint{
+.instructions .hint {
   text-align: center;
   font-size: 0.85rem;
   color: #666;
 }
 
-.cell.demo{
+.cell.demo {
   display: inline-block;
   width: 1.3rem;
   height: 1.3rem;
@@ -181,7 +181,7 @@ span {
   border: none;         
 }
 
-.answer{
+.answer {
   position: fixed;      
   top: 5rem;           
   right: 2rem;        

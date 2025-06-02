@@ -1,11 +1,12 @@
 const express = require("express");
 const path = require("path");
-const bodyParser = require("body-parser");
+const cors = require("cors");
 const words   = require("./words.js");
 
 const app = express();     // server variable
 
-app.use(bodyParser.json({ type: '*/*' }));   // JSON unpacking
+app.use(cors());
+app.use(express.json());   // JSON unpacking
 
 // word choosing
 const EPOCH = new Date("2021-01-01T00:00:00Z");   // beginning date

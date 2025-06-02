@@ -1,0 +1,10 @@
+services:
+  wordle:
+    build: .
+    ports:
+      - "8080:3000"        
+    volumes:
+      - ./:/app        
+      - /app/backend/node_modules   
+    command: ["node", "--watch", "backend/server.js"]
+    restart: unless-stopped

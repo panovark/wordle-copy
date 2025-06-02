@@ -1,75 +1,84 @@
-# Wordle‑Clone — front‑end + back‑end
+# Wordle‑Style Game (Node 18 + Express 5)
 
-A minimalist Wordle‑style guessing game built with **vanilla HTML/CSS/JS** on the front‑end and a tiny **Node 18 ＋ Express 5** REST API.
+A lightweight **Wordle clone**: vanilla HTML/CSS/JS on the front end and a tiny REST API on Node 18 + Express 5 on the back end.
 
 ---
 
 ## ✨ Features
 
-* **5 × 6 grid** with the same flip / colour animations as the original game
-* Keyboard support
-* **Two‑route API**:
+* **5 × 6 grid** with flip animation and the familiar green / yellow / gray colours.  
+* **Keyboard controls** (letters, Backspace, Enter).  
+* **Two REST endpoints**
 
-  * `GET /word-of-the-day` – returns the daily word and puzzle number
-  * `POST /validate-word` – verifies a 5‑letter guess
-* Zero client‑side libraries; server uses only **express • body‑parser**
+  | Method | Route | Description |
+  | ------ | ----- | ----------- |
+  | `GET /word‑of‑the‑day` | Returns `{ word, puzzleNumber }`. |
+  | `POST /validate‑word`  | Returns `{ validWord: true/false }` for any five‑letter attempt. |
+
+* **Zero front‑end frameworks** – pure JS, CSS & HTML.
 
 ---
 
 ## 📁 Project layout
 
 ```
-wordle/
-├─ index.html          # UI
-├─ style.css           # styles
-├─ logic.js            # client logic (fetches the API)
-├─ README.md           # this file
+root/
+├─ index.html
+├─ style.css
+├─ logic.js
+├─ Dockerfile
+├─ docker-compose.yml
 └─ backend/
-    ├─ server.js       # Express entry point – also serves the static UI
-    ├─ words.js        # 5‑letter dictionary
-    ├─ package.json    # deps & scripts
-    └─ …
+   ├─ server.js
+   ├─ words.js
+   ├─ package.json
+   └─ package-lock.json
 ```
 
 ---
 
-## 🔧 Prerequisites
+## 🚀 Quick start
 
-* **Node.js ≥ 18** (npm included)
-* Any modern browser
-
----
-
-## 🚀 Quick start (local)
+### 1 – Run without Docker (local)
 
 ```bash
-# 1. install deps & launch the server
 cd backend
-npm ci            # reproducible install
-npm start         # runs "node server.js"
-# → http://localhost:3000
-
-# 2. open the game
-open http://localhost:3000     # macOS
-start http://localhost:3000    # Windows
+npm ci        # reproducible install
+npm start     # runs node server.js
+# open http://localhost:3000
 ```
 
-`server.js` binds the port like this:
+The server listens on `process.env.PORT || 3000`.
 
-```js
-const PORT = process.env.PORT || 3000;
-```
+### 2 – Run with Docker Compose (recommended)
 
-Set a custom port if you need:
+`docker compose` automatically **builds** the image the first time it starts, so no separate `docker build` is required.
 
 ```bash
-PORT=4000 npm start   # Linux/macOS
-set PORT=4000&&npm start   # Windows CMD
+# start container (builds on first run) and follow logs
+docker compose up           # add -d to run in the background
+
+#   edit any file  → Node 18 restarts automatically (--watch)
+
+# stop and remove the container + network
+docker compose down
 ```
 
-Because the **front‑end now calls the API using *relative* paths** (`/word-of-the-day`, `/validate-word`), you don’t need to change anything when you move the app to another domain or port.
+Hot reload works because `docker-compose.yml`:
 
-## 🛣️ API reference
+* mounts the project into `/app` (`volumes`), and  
+* launches `node --watch backend/server.js` (`command`).
 
-* **/word-of-the-day** returns the same 5‑letter word to everyone for 24 h (based on epoch offset).
-* **/validate-word** checks length == 5 and dictionary membership; the front‑end calculates tile colours locally.
+---
+
+## ⚙️ npm scripts
+
+| Script        | Purpose                         |
+| ------------- | ------------------------------- |
+| `npm start`   | Production run (`node server.js`) |
+
+---
+
+## 📑 Licence
+
+Released under the **ISC** licence (see `package.json`).
