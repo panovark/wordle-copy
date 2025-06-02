@@ -40,10 +40,10 @@ app.post("/validate-word", (req, res) => {
   res.json({ word: guess, validWord });   // example {"word":"hell", "validWord":false}
 });
 
-app.use(express.static(path.join(__dirname, '..')));
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.use((_req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'index.html'));
+  res.sendFile(path.join(__dirname, "../frontend", "index.html"));
 });
 
 // launch
