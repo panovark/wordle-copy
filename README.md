@@ -78,7 +78,3 @@ Hot reload works because `docker-compose.yml`:
 | `npm start`   | Production run (`node server.js`) |
 
 ---
-
-## 📑 Licence
-
-Released under the **ISC** licence (see `package.json`).
