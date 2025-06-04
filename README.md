@@ -80,5 +80,6 @@ Hot reload works because `docker-compose.yml`:
 | Script        | Purpose                         |
 | ------------- | ------------------------------- |
 | `npm start`   | Production run (`node server.js`) |
+| `npm test`    | Run API tests with Jest |
 
 ---

@@ -47,7 +47,11 @@ app.use((_req, res) => {
 });
 
 // launch
-const PORT = process.env.PORT || 3000;       
-app.listen(PORT, () =>
-  console.log(`✅  API is listening to http://localhost:${PORT}`)
-);
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () =>
+    console.log(`✅  API is listening to http://localhost:${PORT}`)
+  );
+}
+
+module.exports = app;
