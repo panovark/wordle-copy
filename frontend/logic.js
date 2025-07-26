@@ -15,6 +15,7 @@ async function main() {
   // let variables
   let isFinished = false; // to check if a user finished a game
   let isValid = false; // to check a validity of a word
+  let isLoading = false; // to check if the request is proceed
 
   let todayWord = ""; // contains today's word a user wants to guess
   let guessedWord = ""; // contains a word that a user typed
@@ -25,7 +26,7 @@ async function main() {
   await initWord();
   
   document.addEventListener("keydown", function(event) {
-    if (isFinished) return;
+    if (isFinished || isLoading) return;
     const key = event.key;
     input(key);
   });
@@ -63,11 +64,13 @@ async function main() {
 
   // shows loader icon while working with the API
   function showLoader() {
+    isLoading = true;
     LOADER.style.display = "block";
   }
 
   // hides loader icon when we've got everything wee need from the API
   function hideLoader() {
+    isLoading = false;
     LOADER.style.display = "none";
   }
 
@@ -78,7 +81,7 @@ async function main() {
 
   // confirms user input and shows the loader icon
   async function confirmInput() { 
-    if (guessedWord.length !== ANSWER_LENGTH) return;
+    if (guessedWord.length !== ANSWER_LENGTH || isLoading) return;
 
     showLoader();
     try {
