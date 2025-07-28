@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const words   = require("./words.js");
+const seedrandom = require("seedrandom");
 
 const app = express();     // server variable
 
@@ -17,9 +18,12 @@ function getPuzzleNumber() {
   return diffInDays;
 }
 
+// returns a word of the day thx to puzzle number
 function getTodayWord() {
-  const idx = getPuzzleNumber() % words.length;          
-  return words[idx];  // lower-case
+  const seed = getPuzzleNumber().toString(); 
+  const rng = seedrandom(seed);
+  const idx = Math.floor(rng() * words.length);
+  return words[idx];
 }
 
 // GET /word-of-the-day
