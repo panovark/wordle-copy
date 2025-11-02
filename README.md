@@ -6,16 +6,16 @@ A lightweight **Wordle clone**: vanilla HTML/CSS/JS on the front end and a tiny 
 
 ## ✨ Features
 
-* **5 × 6 grid** with flip animation and the familiar green / yellow / gray colours.  
-* **Keyboard controls** (letters, Backspace, Enter).  
-* **Two REST endpoints**
+- **5 × 6 grid** with flip animation and the familiar green / yellow / gray colours.
+- **Keyboard controls** (letters, Backspace, Enter).
+- **Two REST endpoints**
 
-  | Method | Route |
-  | ------ | ----- |
-  | `GET /word‑of‑the‑day` | Returns `{ word, puzzleNumber }`. |
-  | `POST /validate‑word`  | Returns `{ validWord: true/false }` for any five‑letter attempt. |
+  | Method                 | Route                                                                  |
+  | ---------------------- | ---------------------------------------------------------------------- |
+  | `GET /word-of-the-day` | Returns `{ word, puzzleNumber }`.                                      |
+  | `POST /validate-word`  | Returns `{ word, validWord: true/false }` for any five‑letter attempt. |
 
-* **Zero front‑end frameworks** – pure JS, CSS & HTML.
+- **Zero front‑end frameworks** – pure JS, CSS & HTML.
 
 ---
 
@@ -24,7 +24,7 @@ A lightweight **Wordle clone**: vanilla HTML/CSS/JS on the front end and a tiny 
 ```
 wordle-copy/
 ├── backend/              # Server-side code (Express)
-│   ├── words.js          # Word dictionary (array of ~2300 words)
+│   ├── words.js          # Word dictionary (array of 2309 words)
 │   ├── server.js         # Main API code
 │   ├── package.json
 │   └── package-lock.json
@@ -70,19 +70,19 @@ docker compose down
 
 Hot reload works because `docker-compose.yml`:
 
-* mounts the project into `/app` (`volumes`), and  
-* launches `node --watch backend/server.js` (`command`).
+- mounts the project into `/app` (`volumes`), and
+- launches `node --watch backend/server.js` (`command`).
 
 ---
 
 ## ⚙️ npm scripts
 
-| Script        | Purpose                         |
-| ------------- | ------------------------------- |
-| `npm start`   | Production run (`node server.js`) |
+| Script      | Purpose                           |
+| ----------- | --------------------------------- |
+| `npm start` | Production run (`node server.js`) |
 
 ---
 
 ## 📄 License
 
-[MIT](LICENSE) © 2025 Arkadiy Panov
+[MIT](LICENSE) © 2025 Arkadiy Panov
